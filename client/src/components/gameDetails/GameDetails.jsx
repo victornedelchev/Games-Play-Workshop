@@ -7,6 +7,8 @@ import * as commentService from "../../services/commentService";
 export default function GameDetails() {
   const [game, setGame] = useState({});
   const [comments, setComments] = useState([]);
+  const [username, setUsername] = useState("");
+  const [text, setText] = useState("");
   const { gameId } = useParams();
 
   useEffect(() => {
@@ -31,7 +33,10 @@ export default function GameDetails() {
       formData.get("comment")
     );
 
-    console.log(newComment);
+    setComments((state) => [...state, newComment]);
+
+    setUsername("");
+    setText("");
   };
 
   return (
@@ -55,7 +60,9 @@ export default function GameDetails() {
             {/* <!-- list all comments for current game (If any) --> */}
             {comments.map((comment) => (
               <li className="comment" key={comment._id}>
-                <p>{comment.username}: {comment.text}</p>
+                <p>
+                  {comment.username}: {comment.text}
+                </p>
               </li>
             ))}
           </ul>
@@ -79,8 +86,19 @@ export default function GameDetails() {
       <article className="create-comment">
         <label>Add new comment:</label>
         <form className="form" onSubmit={addCommentHandler}>
-          <input type="text" name="username" placeholder="Victor" />
-          <textarea name="comment" placeholder="Comment......"></textarea>
+          <input
+            type="text"
+            name="username"
+            placeholder="Victor"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <textarea
+            name="comment"
+            placeholder="Comment......"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+          ></textarea>
           <input className="btn submit" type="submit" value="Add Comment" />
         </form>
       </article>
