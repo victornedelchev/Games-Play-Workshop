@@ -16,7 +16,7 @@ export default function GameDetails() {
       const gameResult = await gameService.getOneGame(gameId);
       setGame(gameResult);
 
-      const commentsResult = await commentService.getAllComments();
+      const commentsResult = await commentService.getAllComments(gameId);
       setComments(commentsResult);
       console.log(comments);
     })();
