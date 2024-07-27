@@ -18,7 +18,6 @@ export default function GameDetails() {
 
       const commentsResult = await commentService.getAllComments(gameId);
       setComments(commentsResult);
-      console.log(comments);
     })();
   }, [gameId]);
 
