@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import GameCatalog from "./components/gameCatalog/GameCatalog";
@@ -10,6 +12,13 @@ import Login from "./components/login/Login";
 import Register from "./components/register/Register";
 
 function App() {
+  const [auth, setAuth] = useState({});
+
+  const loginSubmitHandler = (values) => {
+    
+    console.log(values);
+  }
+
   return (
     <BrowserRouter>
       <div id="box">
@@ -18,7 +27,7 @@ function App() {
         <main id="main-content">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<Login loginSubmitHandler={loginSubmitHandler} />} />
             <Route path="/register" element={<Register />} />
             <Route path="/games-create" element={<GameCreate />} />
             <Route path="/games/:gameId/edit/" element={<GameEdit />} />
