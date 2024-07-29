@@ -7,3 +7,12 @@ export const login = async (email, password) => {
 
   return result;
 };
+
+export const register =(email, password) => {
+  const result = request.post(`${BASE_URL}/register`, {
+    email,
+    password,
+  });
+
+  return result;
+};

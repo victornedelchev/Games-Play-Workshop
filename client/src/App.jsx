@@ -18,6 +18,7 @@ import Register from "./components/register/Register";
 
 function App() {
   const [auth, setAuth] = useState({});
+  const [error, setError] = useState("");
   // const navigate = useNavigate();
 
   const loginSubmitHandler = async (values) => {
@@ -27,15 +28,22 @@ function App() {
   };
 
   const registerSubmitHandler = async (values) => {
-    console.log(values);
-  }
+    if (values.password !== values["confirm-password"]) {
+      setError("Password mismatch");
+      throw new Error(error);
+    }
+
+    const result = await authService.register(values.email, values.password);
+    setAuth(result);
+    // navigate(Path.Home);
+  };
 
   const values = {
     loginSubmitHandler,
     registerSubmitHandler,
-    username: auth.username,
+    username: auth.username || auth.email,
     email: auth.email,
-    isAuthenticated: !!auth.username,
+    isAuthenticated: !!auth.email,
   };
 
   return (
