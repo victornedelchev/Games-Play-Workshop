@@ -1,19 +1,15 @@
 import * as request from "../lib/request";
 
-const BASE_URL = "http://localhost:3030/jsonstore/comments";
+const BASE_URL = "http://localhost:3030/data/comments";
 
 export const getAllComments = async (gameId) => {
-  //! This code work with Collections on SoftUni practice server
-  // const query = new URLSearchParams({
-  //   where: `gameId="${gameId}"`,
-  // });
+  const query = new URLSearchParams({
+    where: `gameId="${gameId}"`,
+  });
 
-  // const result = await request.get(`${BASE_URL}?${query.toString()}`);
+  const result = await request.get(`${BASE_URL}?${query}`);
 
-  // TODO: modify this code (this is temporary solution until migration to collection service)
-  const result = await request.get(BASE_URL);
-
-  return Object.values(result).filter((comment) => comment.gameId === gameId);
+  return result
 };
 
 export const createComment = async (gameId, username, text) => {
