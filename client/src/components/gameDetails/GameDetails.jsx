@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import * as gameService from "../../services/gameService";
 import * as commentService from "../../services/commentService";
+import AuthContext from "../../contexts/authContext";
 
 export default function GameDetails() {
+  const { email } = useContext(AuthContext);
   const [game, setGame] = useState({});
   const [comments, setComments] = useState([]);
   const [username, setUsername] = useState("");
@@ -28,11 +30,11 @@ export default function GameDetails() {
 
     const newComment = await commentService.createComment(
       gameId,
-      formData.get("username"),
+      // formData.get("username"),
       formData.get("comment")
     );
 
-    setComments((state) => [...state, newComment]);
+    setComments((state) => [...state, { ...newComment, owner: { email } }]);
 
     setUsername("");
     setText("");
@@ -57,10 +59,10 @@ export default function GameDetails() {
           <h2>Comments:</h2>
           <ul>
             {/* <!-- list all comments for current game (If any) --> */}
-            {comments.map((comment) => (
-              <li className="comment" key={comment._id}>
+            {comments.map(({ _id, text, owner: { email } }) => (
+              <li className="comment" key={_id}>
                 <p>
-                  {comment.username}: {comment.text}
+                  {email}: {text}
                 </p>
               </li>
             ))}
@@ -85,13 +87,13 @@ export default function GameDetails() {
       <article className="create-comment">
         <label>Add new comment:</label>
         <form className="form" onSubmit={addCommentHandler}>
-          <input
+          {/* <input
             type="text"
             name="username"
             placeholder="Victor"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-          />
+          /> */}
           <textarea
             name="comment"
             placeholder="Comment......"
