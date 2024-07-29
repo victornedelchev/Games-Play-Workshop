@@ -14,7 +14,6 @@ import Header from "./components/header/Header";
 import Home from "./components/home/Home";
 import Login from "./components/login/Login";
 import Register from "./components/register/Register";
-import Path from "./pats";
 // import Path from "./pats";
 
 function App() {
@@ -27,8 +26,15 @@ function App() {
     // navigate(Path.Home);
   };
 
+  const values = {
+    loginSubmitHandler,
+    username: auth.username,
+    email: auth.email,
+    isAuthenticated: !!auth.username,
+  };
+
   return (
-    <AuthContext.Provider value={{ loginSubmitHandler }}>
+    <AuthContext.Provider value={values}>
       <BrowserRouter>
         <div id="box">
           <Header />
