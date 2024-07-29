@@ -1,6 +1,10 @@
 import { useState } from "react";
 
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+
+import AuthContext from "./contexts/authContext";
+
+import * as authService from "../src/services/authService";
 
 import GameCatalog from "./components/gameCatalog/GameCatalog";
 import GameCreate from "./components/gameCreate/GameCreate";
@@ -10,13 +14,17 @@ import Header from "./components/header/Header";
 import Home from "./components/home/Home";
 import Login from "./components/login/Login";
 import Register from "./components/register/Register";
-import AuthContext from "./contexts/authContext";
+import Path from "./pats";
+// import Path from "./pats";
 
 function App() {
   const [auth, setAuth] = useState({});
+  // const navigate = useNavigate();
 
-  const loginSubmitHandler = (values) => {
-    console.log(values);
+  const loginSubmitHandler = async (values) => {
+    const result = await authService.login(values.email, values.password);
+    setAuth(result);
+    // navigate(Path.Home);
   };
 
   return (
@@ -28,10 +36,7 @@ function App() {
           <main id="main-content">
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route
-                path="/login"
-                element={<Login />}
-              />
+              <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/games-create" element={<GameCreate />} />
               <Route path="/games/:gameId/edit/" element={<GameEdit />} />
