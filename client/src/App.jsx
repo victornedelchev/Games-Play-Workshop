@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 
-import AuthContext from "./contexts/authContext";
+import { AuthProvider } from "./contexts/authContext";
 
 import * as authService from "../src/services/authService";
 
@@ -19,8 +19,8 @@ import Path from "./pats";
 
 function App() {
   const [auth, setAuth] = useState(() => {
-    localStorage.removeItem('accessToken');
-    
+    localStorage.removeItem("accessToken");
+
     return {};
   });
   const [error, setError] = useState("");
@@ -29,7 +29,7 @@ function App() {
   const loginSubmitHandler = async (values) => {
     const result = await authService.login(values.email, values.password);
     setAuth(result);
-    localStorage.setItem('accessToken', result.accessToken);
+    localStorage.setItem("accessToken", result.accessToken);
     // navigate(Path.Home);
   };
 
@@ -41,14 +41,14 @@ function App() {
 
     const result = await authService.register(values.email, values.password);
     setAuth(result);
-    localStorage.setItem('accessToken', result.accessToken);
+    localStorage.setItem("accessToken", result.accessToken);
     // navigate(Path.Home);
   };
 
   const logoutHandler = () => {
     setAuth({});
-    localStorage.removeItem('accessToken');
-  }
+    localStorage.removeItem("accessToken");
+  };
 
   const values = {
     loginSubmitHandler,
@@ -60,7 +60,7 @@ function App() {
   };
 
   return (
-    <AuthContext.Provider value={values}>
+    <AuthProvider value={values}>
       <BrowserRouter>
         <div id="box">
           <Header />
@@ -79,7 +79,7 @@ function App() {
           </main>
         </div>
       </BrowserRouter>
-    </AuthContext.Provider>
+    </AuthProvider>
   );
 }
 
