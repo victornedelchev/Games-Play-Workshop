@@ -12,7 +12,7 @@ export default function GameDetails() {
   const [game, setGame] = useState({});
   // const [comments, setComments] = useState([]);
   const [comments, dispatch] = useReducer(reducer, []);
-  const [setUsername] = useState("");
+  const [username, setUsername] = useState("");
   const [text, setText] = useState("");
   const { gameId } = useParams();
 
