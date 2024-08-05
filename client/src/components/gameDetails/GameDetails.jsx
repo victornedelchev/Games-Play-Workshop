@@ -6,14 +6,13 @@ import * as gameService from "../../services/gameService";
 import * as commentService from "../../services/commentService";
 import AuthContext from "../../contexts/authContext";
 import reducer from "./commentReducer";
+import useForm from "../../hooks/useForm";
 
 export default function GameDetails() {
   const { email } = useContext(AuthContext);
   const [game, setGame] = useState({});
   // const [comments, setComments] = useState([]);
   const [comments, dispatch] = useReducer(reducer, []);
-  const [username, setUsername] = useState("");
-  const [text, setText] = useState("");
   const { gameId } = useParams();
 
   useEffect(() => {
@@ -29,15 +28,10 @@ export default function GameDetails() {
     })();
   }, [gameId]);
 
-  const addCommentHandler = async (e) => {
-    e.preventDefault();
-
-    const formData = new FormData(e.currentTarget);
-
+  const addCommentHandler = async (values) => {
     const newComment = await commentService.createComment(
       gameId,
-      // formData.get("username"),
-      formData.get("comment")
+      values.comment
     );
 
     newComment.owner = { email };
@@ -48,9 +42,13 @@ export default function GameDetails() {
       payload: newComment,
     });
 
-    setUsername("");
-    setText("");
+    values.comment = "";
   };
+
+  const { values, onChange, onSubmit } = useForm(
+    { comment: "" },
+    addCommentHandler
+  );
 
   return (
     // <!--Details Page-->
@@ -98,7 +96,7 @@ export default function GameDetails() {
       {/* <!-- Add Comment ( Only for logged-in users, which is not creators of the current game ) --> */}
       <article className="create-comment">
         <label>Add new comment:</label>
-        <form className="form" onSubmit={addCommentHandler}>
+        <form className="form" onSubmit={onSubmit}>
           {/* <input
             type="text"
             name="username"
@@ -109,8 +107,8 @@ export default function GameDetails() {
           <textarea
             name="comment"
             placeholder="Comment......"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
+            value={values.comment}
+            onChange={onChange}
           ></textarea>
           <input className="btn submit" type="submit" value="Add Comment" />
         </form>
