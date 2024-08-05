@@ -9,7 +9,7 @@ import reducer from "./commentReducer";
 import useForm from "../../hooks/useForm";
 
 export default function GameDetails() {
-  const { email } = useContext(AuthContext);
+  const { email, userId } = useContext(AuthContext);
   const [game, setGame] = useState({});
   // const [comments, setComments] = useState([]);
   const [comments, dispatch] = useReducer(reducer, []);
@@ -50,6 +50,8 @@ export default function GameDetails() {
     addCommentHandler
   );
 
+  const isOwner = userId === game._ownerId;
+
   return (
     // <!--Details Page-->
     <section id="game-details">
@@ -82,14 +84,16 @@ export default function GameDetails() {
         </div>
 
         {/* <!-- Edit/Delete buttons ( Only for creator of this game )  --> */}
-        <div className="buttons">
-          <a href="#" className="button">
-            Edit
-          </a>
-          <a href="#" className="button">
-            Delete
-          </a>
-        </div>
+        {isOwner && (
+          <div className="buttons">
+            <a href="#" className="button">
+              Edit
+            </a>
+            <a href="#" className="button">
+              Delete
+            </a>
+          </div>
+        )}
       </div>
 
       {/* <!-- Bonus --> */}
