@@ -22,14 +22,14 @@ function App() {
           <Header />
           <main id="main-content">
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
+              <Route path={Path.Home} element={<Home />} />
+              <Route path={Path.Login} element={<Login />} />
+              <Route path={Path.Register} element={<Register />} />
               <Route path={Path.Logout} element={<Logout />} />
-              <Route path="/games-create" element={<GameCreate />} />
-              <Route path="/games/:gameId/edit/" element={<GameEdit />} />
-              <Route path="/games/:gameId/details" element={<GameDetails />} />
-              <Route path="/catalog" element={<GameCatalog />} />
+              <Route path={Path.Create} element={<GameCreate />} />
+              <Route path={Path.Edit} element={<GameEdit />} />
+              <Route path={Path.Details} element={<GameDetails />} />
+              <Route path={Path.Catalog} element={<GameCatalog />} />
             </Routes>
           </main>
         </div>
