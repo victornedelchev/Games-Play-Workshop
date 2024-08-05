@@ -7,6 +7,8 @@ import * as commentService from "../../services/commentService";
 import AuthContext from "../../contexts/authContext";
 import reducer from "./commentReducer";
 import useForm from "../../hooks/useForm";
+import { pathToURL } from "../../utils/pathUtils";
+import Path from "../../pats";
 
 export default function GameDetails() {
   const { email, userId } = useContext(AuthContext);
@@ -86,7 +88,7 @@ export default function GameDetails() {
         {/* <!-- Edit/Delete buttons ( Only for creator of this game )  --> */}
         {isOwner && (
           <div className="buttons">
-            <Link to={`/games/${game._id}/edit`} className="button">
+            <Link to={pathToURL(Path.Edit, { gameId })} className="button">
               Edit
             </Link>
             <Link href="#" className="button">
