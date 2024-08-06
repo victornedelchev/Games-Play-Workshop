@@ -16,7 +16,7 @@ export default function Header() {
         <Link to="/catalog">All games</Link>
         {isAuthenticated ? (
           <div id="user">
-            <Link to="games-create">Create Game</Link>
+            <Link to="/games/create">Create Game</Link>
             <Link to="/logout">Logout</Link>
             <span>| Welcome {username}</span>
           </div>
