@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 
 import { Link } from "react-router-dom";
 
@@ -13,11 +13,17 @@ const loginFormKeys = {
 export default function Login() {
   const { loginSubmitHandler } = useContext(AuthContext);
 
+  const initialValues = useMemo(() => ( {
+    [loginFormKeys.EMAIL]: "",
+    [loginFormKeys.PASSWORD]: "",
+  }), []);
+
   const { values, onChange, onSubmit } = useForm(
-    {
-      [loginFormKeys.EMAIL]: "",
-      [loginFormKeys.PASSWORD]: "",
-    },
+    // {
+    //   [loginFormKeys.EMAIL]: "",
+    //   [loginFormKeys.PASSWORD]: "",
+    // }
+    initialValues,
     loginSubmitHandler
   );
 

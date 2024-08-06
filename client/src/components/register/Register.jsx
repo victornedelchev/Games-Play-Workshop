@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import { Link } from "react-router-dom";
 import AuthContext from "../../contexts/authContext";
 import useForm from "../../hooks/useForm";
@@ -12,12 +12,19 @@ const registerFormKeys = {
 export default function Register() {
   const { registerSubmitHandler } = useContext(AuthContext);
 
+  const initialValues = useMemo(() => ( {
+    [registerFormKeys.EMAIL]: "",
+    [registerFormKeys.PASSWORD]: "",
+    [registerFormKeys.RE_PASSWORD]: "",
+  }), []);
+
   const { values, onChange, onSubmit } = useForm(
-    {
-      [registerFormKeys.EMAIL]: "",
-      [registerFormKeys.PASSWORD]: "",
-      [registerFormKeys.RE_PASSWORD]: "",
-    },
+    // {
+    //   [registerFormKeys.EMAIL]: "",
+    //   [registerFormKeys.PASSWORD]: "",
+    //   [registerFormKeys.RE_PASSWORD]: "",
+    // },
+    initialValues,
     registerSubmitHandler
   );
 

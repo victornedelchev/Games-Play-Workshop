@@ -1,13 +1,20 @@
+import { useEffect, useState } from "react";
+
 import { useNavigate, useParams } from "react-router-dom";
 
 import * as gameService from "../../services/gameService";
 import useForm from "../../hooks/useForm";
-import { useEffect, useState } from "react";
 
 export default function GameEdit() {
   const navigate = useNavigate();
   const { gameId } = useParams();
-  const [game, setGame] = useState({});
+  const [game, setGame] = useState({
+    title: "",
+    category: "",
+    maxLevel: "",
+    imageUrl: "",
+    summary: "",
+  });
 
   useEffect(() => {
     gameService.getOneGame(gameId).then((result) => {

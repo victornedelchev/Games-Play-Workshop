@@ -1,4 +1,4 @@
-import { useContext, useEffect, useReducer, useState } from "react";
+import { useContext, useEffect, useMemo, useReducer, useState } from "react";
 
 import { Link, useParams } from "react-router-dom";
 
@@ -47,8 +47,11 @@ export default function GameDetails() {
     values.comment = "";
   };
 
+  // TODO: Temporary solution for form reinitialization
+  const initialValues = useMemo(() => ({ comment: "" }), []);
+
   const { values, onChange, onSubmit } = useForm(
-    { comment: "" },
+    initialValues,
     addCommentHandler
   );
 
