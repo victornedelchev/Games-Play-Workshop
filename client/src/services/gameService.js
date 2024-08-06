@@ -6,7 +6,7 @@ export const getOneGame = (gameId) => request.get(`${BASE_URL}/${gameId}`);
 
 export const getAllGames = async () => {
   const result = await request.get(BASE_URL);
-  
+
   return result;
 };
 
@@ -20,4 +20,8 @@ export const editGame = async (gameId, gameData) => {
   const result = await request.put(`${BASE_URL}/${gameId}`, gameData);
 
   return result;
-}
+};
+
+export const deleteGame = async (gameId) => {
+  await request.del(`${BASE_URL}/${gameId}`);
+};
