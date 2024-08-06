@@ -1,16 +1,16 @@
 import { createContext, useState } from "react";
 
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import * as authService from "../services/authService";
 import usePersistedState from "../hooks/usePersistedState";
-// import Path from "../pats";
+import Path from "../pats";
 
 const AuthContext = createContext();
 AuthContext.displayName = "AuthContext";
 
 export const AuthProvider = ({ children }) => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [auth, setAuth] = usePersistedState("auth", {});
   const [error, setError] = useState("");
 
@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
     const result = await authService.login(values.email, values.password);
     setAuth(result);
     localStorage.setItem("accessToken", result.accessToken);
-    // navigate(Path.Home);
+    navigate(Path.Home);
   };
 
   const registerSubmitHandler = async (values) => {
@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
     const result = await authService.register(values.email, values.password);
     setAuth(result);
     localStorage.setItem("accessToken", result.accessToken);
-    // navigate(Path.Home);
+    navigate(Path.Home);
   };
 
   const logoutHandler = () => {
