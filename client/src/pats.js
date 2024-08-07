@@ -5,7 +5,6 @@ const Path = {
   Register: "/register",
   Create: "/games/create",
   Edit: "/games/:gameId/edit",
-  Delete: "/games/:gameId/edit",
   Details: "/games/:gameId/details",
   Catalog: "/catalog",
 };
