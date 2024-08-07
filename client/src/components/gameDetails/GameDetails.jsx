@@ -5,10 +5,10 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import * as gameService from "../../services/gameService";
 import * as commentService from "../../services/commentService";
 import AuthContext from "../../contexts/authContext";
+import Path from "../../pats";
 import reducer from "./commentReducer";
 import useForm from "../../hooks/useForm";
 import { pathToURL } from "../../utils/pathUtils";
-import Path from "../../pats";
 
 export default function GameDetails() {
   const { email, userId } = useContext(AuthContext);
