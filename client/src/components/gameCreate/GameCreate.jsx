@@ -14,7 +14,6 @@ export default function GameCreate() {
       await gameService.createGame(gameData);
       navigate("/catalog");
     } catch (error) {
-      // TODO: error notification
       console.error(error);
     }
   };

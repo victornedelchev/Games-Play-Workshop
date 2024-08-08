@@ -37,7 +37,6 @@ export default function GameEdit() {
       await gameService.editGame(gameId, values);
       navigate("/catalog");
     } catch (error) {
-      // TODO: error notification
       console.error(error);
     }
   };

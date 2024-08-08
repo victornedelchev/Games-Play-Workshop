@@ -59,7 +59,6 @@ export default function GameDetails() {
     }
   };
 
-  // TODO: Temporary solution for form reinitialization
   const initialValues = useMemo(() => ({ comment: "" }), []);
 
   const { values, onChange, onSubmit } = useForm(
