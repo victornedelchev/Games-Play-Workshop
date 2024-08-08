@@ -27,12 +27,10 @@ function Home({ email }) {
 
         {/* <!-- Display div: with information about every game (if any) --> */}
         {latestGames.map((game) => (
-          <LatestGames key={latestGames._id} {...game} />
+          <LatestGames key={game._id} {...game} />
         ))}
         {/* <!-- Display paragraph: If there is no games  --> */}
-        {!latestGames.length && (
-          <p className="no-articles">No games yet</p>
-        )}
+        {!latestGames.length && <p className="no-articles">No games yet</p>}
         <p>{email}</p>
       </div>
     </section>
