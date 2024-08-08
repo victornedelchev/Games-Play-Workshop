@@ -4,7 +4,7 @@ import withAuth from "../../HOC/withAuth";
 import * as gameService from "../../services/gameService";
 import LatestGames from "./latestGams/LatestGames";
 
-function Home({ _id, accessToken, email }) {
+function Home({ email }) {
   const [latestGames, setLatestGames] = useState([]);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ function Home({ _id, accessToken, email }) {
 
         {/* <!-- Display div: with information about every game (if any) --> */}
         {latestGames.map((game) => (
-          <LatestGames {...game} />
+          <LatestGames key={latestGames._id} {...game} />
         ))}
         {/* <!-- Display paragraph: If there is no games  --> */}
         {!latestGames.length && (
